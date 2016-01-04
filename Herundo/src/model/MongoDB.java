@@ -1,4 +1,5 @@
-package herundo;
+package model;
+
 
 import org.bson.Document;
 
