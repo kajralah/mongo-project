@@ -1,21 +1,5 @@
-body{
-background-image: -ms-linear-gradient(top, #FFFFFF 0%, #D3D8E8 100%);
-/* Mozilla Firefox */ 
-background-image: -moz-linear-gradient(top, #FFFFFF 0%, #D3D8E8 100%);
-/* Opera */ 
-background-image: -o-linear-gradient(top, #FFFFFF 0%, #D3D8E8 100%);
-/* Webkit (Safari/Chrome 10) */ 
-background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #FFFFFF), color-stop(1, #D3D8E8));
-/* Webkit (Chrome 11+) */ 
-background-image: -webkit-linear-gradient(top, #FFFFFF 0%, #D3D8E8 100%);
-/* W3C Markup, IE10 Release Preview */ 
-background-image: linear-gradient(to bottom, #FFFFFF 0%, #D3D8E8 100%);
-background-repeat: no-repeat;
-background-attachment: fixed;
-}
-
 .navbar-default{
-	background-color:#4c66a4;
+	background-color:#F9FF81;
 	border-bottom:none;
 }
 .navbar-form label{
@@ -31,27 +15,7 @@ legend a{
 	font-size:25px;
 	font-weight:bold;
 }
-.login-btn {
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 0px;
-  cursor:pointer;  
-  text-shadow: 1px 1px 4px #8a8a8a;
-  font-family: Arial;
-  color: #ffffff;
-  font-size: 13px;
-  background: #5b74a8;
-  line-height:21px; 
-  font-weight:bold; 
-  padding: 3px 6px 3px 6px;
-  border: solid #29447e  1px;
-  text-decoration: none;
-}
 
-.login-btn:hover {
-  background: #5b74a8;
-  text-decoration: none;
-}
 .signup-btn {
   background: #79bc64;
   background-image: -webkit-linear-gradient(top, #79bc64, #578843);
@@ -75,7 +39,7 @@ legend a{
 }
 
 .signup-btn:hover {
-  background: #79bc64;
+  background: #71BDD7;
   background-image: -webkit-linear-gradient(top, #79bc64, #5e7056);
   background-image: -moz-linear-gradient(top, #79bc64, #5e7056);
   background-image: -ms-linear-gradient(top, #79bc64, #5e7056);
@@ -98,9 +62,6 @@ legend a{
 	}
 	.navbar-form .lt-right{
 		float:right !important;
-	}
-	.navbar-form .checkbox{
-		display:block;
 	}
 	.navbar-form input[type="password"]{
 		margin-left:3px;
@@ -125,18 +86,25 @@ legend a{
 		float:left;
 		min-height:400px;
 		width:400px;
-		margin-top:100px;
+		margin-top:200px;
+		margin-right: -50px;
 	}
 	.form-div-left{
 		float:left;
 		min-height:400px;
-		margin-right:200px;
-		margin-left:100px;
-		margin-top: 100px;
+		margin-right:490px;
+		margin-left:0px;
+		margin-top: 200px;
 		width: 300px;
 	}
 	#row{
 		width:100%;
     	margin: auto;
 	}
+	body{
+	 	background-image: url("../img/logo.jpg");
+   	 	background-repeat:no-repeat;
+   		background-size:cover;
+   }	
+
 }
