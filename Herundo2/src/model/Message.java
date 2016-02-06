@@ -3,18 +3,39 @@ package model;
 
 import java.util.Date;
 
-public class Message {
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Field;
+import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Index;
+import org.mongodb.morphia.annotations.Indexes;
+import org.mongodb.morphia.utils.IndexType;
+
+@Entity("messages")
+@Indexes({
+		@Index(fields = @Field(value="content",type=IndexType.TEXT)),
+		@Index(fields = {@Field(value="author_id"),@Field(value="publishDate")})
+		})
+public class Message{
 	
+	@Id
+	private String id;
 	private String content;
 	private String publishPlace;
 	private Date publishDate;
-	private String username;
+
+	private String author_id;
+	
+	//private String author_name;
+	
+	//private List<String> authorInfo;
+	
+	public Message(){
+	}
 	
 	public Message(String content,String publishPlace,String username){
 		setContent(content);
 		setPublishPlace(publishPlace);
 		setPublishDate(new Date());
-		setUsername(username);
 	}
 
 	public String getContent() {
@@ -48,13 +69,12 @@ public class Message {
 		this.publishDate = publishDate;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getAuthor_id() {
+		return author_id;
 	}
 
-	public void setUsername(String username) {
-		if(username != null){
-			this.username = username;
-		}
+	public void setAuthor_id(String author_id) {
+		this.author_id = author_id;
 	}
+	
 }
