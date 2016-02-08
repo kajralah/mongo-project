@@ -1,6 +1,7 @@
 package model;
 
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -12,7 +13,6 @@ import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Index;
 import org.mongodb.morphia.annotations.Indexes;
 import org.mongodb.morphia.annotations.Property;
-
 
 @Entity("users")
 @Indexes({
@@ -32,7 +32,9 @@ public class User{
 	private Date registrationDate;
 	
 	boolean verified;
-	List<User> listOfFollowingUsers;
+	
+	ArrayList<FollowedUser> listOfFollowingUsers;
+	
 	
 	public User() {
 	}
@@ -42,13 +44,15 @@ public class User{
 		setPassword(getHashedPassword(password));
 		setEmail(email);
 		setRegistrationDate(new Date());
+		setListOfFollowingUsers(new ArrayList<FollowedUser>());
 	}
-	
-	public User(String id,String classname,String username,String password,String email){
+		
+	public User(String id,String classname,String username,String password,String email,ArrayList<FollowedUser> listOfFollowingUsers){
 		setUsername(username);
 		setPassword(getHashedPassword(password));
 		setEmail(email);
 		setRegistrationDate(new Date());
+		setListOfFollowingUsers(listOfFollowingUsers);
 	}
 	
 	private String getHashedPassword(String password){
@@ -88,19 +92,25 @@ public class User{
 	public void setVerified(boolean verified) {
 		this.verified = verified;
 	}
-	public List<User> getListOfFollowingUsers() {
+	public List<FollowedUser> getListOfFollowingUsers() {
 		return Collections.unmodifiableList(listOfFollowingUsers);
 	}
-	public void setListOfFollowingUsers(List<User> listOfFollowingUsers) {
+	public void setListOfFollowingUsers(ArrayList<FollowedUser> listOfFollowingUsers) {
 		if(listOfFollowingUsers.size() > 0){
 			this.listOfFollowingUsers = listOfFollowingUsers;
 		}
 	}
-
+	
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password="
-				+ password + ", email=" + email + "]";
+				+ password + ", email=" + email + ", registrationDate="
+				+ registrationDate + ", verified=" + verified
+				+ ", listOfFollowingUsers=" + listOfFollowingUsers + "]";
+	}
+
+	public String getId() {
+		return id;
 	}
 		
 }

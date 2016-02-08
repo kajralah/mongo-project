@@ -32,10 +32,15 @@ public class Message{
 	public Message(){
 	}
 	
-	public Message(String content,String publishPlace,String username){
+	public Message(String id,String classname,String content,String publishPlace,String publishDate,String author_id){
+		
+	}
+	
+	public Message(String content,String publishPlace,String author_id){
 		setContent(content);
 		setPublishPlace(publishPlace);
 		setPublishDate(new Date());
+		setAuthor_id(author_id);
 	}
 
 	public String getContent() {
@@ -75,6 +80,13 @@ public class Message{
 
 	public void setAuthor_id(String author_id) {
 		this.author_id = author_id;
+	}
+
+	@Override
+	public String toString() {
+		return "Message [id=" + id + ", content=" + content + ", publishPlace="
+				+ publishPlace + ", publishDate=" + publishDate
+				+ ", author_id=" + author_id + "]";
 	}
 	
 }

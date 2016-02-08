@@ -47,11 +47,11 @@ $("#message").submit(function(event){
 	
 	$.ajax({
 		  type:    "POST",
-		  url:     "rest/message/create",
+		  url:     "rest/user/message",
 		  data:    {"message": message,"place":place},
 		  async: false,
-		  success: function(data) {
-		       alert(data);
+		  success: function() {
+		       alert("Message successfully published");
 		  }	
 		});
 });

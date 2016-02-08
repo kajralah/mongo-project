@@ -1,6 +1,7 @@
 package controller;
 
 import javax.inject.Inject;
+import javax.servlet.ServletException;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -17,13 +18,12 @@ public class UserServices {
 	
 	//@Inject
 	//private UserContext context;
-
+	
   @POST
   @Path("login")
-  public String login(@FormParam("email") String email,@FormParam("password") String password){
+  public String login(@FormParam("email") String email,@FormParam("password") String password) throws ServletException{
 	  User user = db.login(email, password);
 	  if(user != null){
-		  //context.setCurrentUser(user);
 		  return user.getUsername();
 	  }
 	  else{
@@ -39,8 +39,13 @@ public class UserServices {
   
   @Path("logout")
   @GET
-  public void logoutUser(){
-	  //context.setCurrentUser(null);
+  public void logoutUser() throws ServletException{
+  }
+  
+  @Path("message")
+  @POST
+  public void addMessage(@FormParam("message") String message,@FormParam("place") String place){
+	  db.create_message(message, place);
   }
 
 } 
