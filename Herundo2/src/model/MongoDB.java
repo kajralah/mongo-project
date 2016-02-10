@@ -1,11 +1,15 @@
 package model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.httpclient.util.DateParser;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 import org.mongodb.morphia.aggregation.Accumulator;
@@ -22,7 +26,13 @@ import static org.mongodb.morphia.aggregation.Group.grouping;
 
 
 
+
+
+
+
+
 import com.mongodb.MongoClient;
+import com.thoughtworks.xstream.converters.basic.DateConverter;
 
 import edu.emory.mathcs.backport.java.util.Collections;
 
@@ -81,7 +91,6 @@ public class MongoDB{
 	 public void create_message(String content,String place){
 		 
 		 //Klari = context.getCurrentUser.getuser_id;
-		 
 		 Message message = new Message(content, place, "Kali");
 		 this.addMessage(message);
 	 }	 
@@ -118,17 +127,33 @@ public class MongoDB{
 		this.datastore.update(query, ops);
 	 }
 	 
-	 public User getAllFollowedUsersByUsername(String username){
+	 public List<String> getAllFollowedUsersByUsername(String username){
 
+		 List<String> usernames = new ArrayList<String>();
 		 Query<User> query = this.datastore.find(User.class).
 				 field("username").equal(username).
 				 retrievedFields(true, "username","listOfFollowingUsers");
-		return query.get();
+		 for(FollowedUser u: query.get().getListOfFollowingUsers()){
+			 usernames.add(u.getUsername());
+		 }
+		 return usernames;
+		/* return query.get().getListOfFollowingUsers();*/
+	 }
+	 
+	 public List<String> getAllOtherUsers(String username){
+		 List<String> usernames = new ArrayList<String>();
+		 Query<User> query = this.datastore.find(User.class).
+				 field("username").notEqual(username).
+				 retrievedFields(true, "username");
+		 for(User user : query.asList()){
+			 usernames.add(user.getUsername());
+		 }
+		 return usernames;
 	 }
 	 
 	 //text index don't get after whitespace ?? 
 	 /*FIRST STATISTIC*/
-	 public Collection getFirstTenUser(String searchContent){
+	 public List<String> getFirstTenUser(String searchContent){
 		 
 		 List<String> firstTenUsers = new ArrayList<String>();
 		
@@ -137,38 +162,47 @@ public class MongoDB{
 		 AggregationPipeline agg  = this.datastore.createAggregation(Message.class).match(query)
 				 .group("author_id",grouping("count", new Accumulator("$sum", 1)));
 		 agg.sort(new Sort("count", -1));
-		System.out.println(agg);
+		 agg.limit(10);
+		 
 		 Iterator<WrittenMessages> i = agg.aggregate(WrittenMessages.class);
 		 while(i.hasNext()){
-			 firstTenUsers.add(i.next().getId());
+			 WrittenMessages current = i.next();
+			 firstTenUsers.add(current.getId()+"-"+current.getCount());
 		 }
-		 return Collections.unmodifiableCollection(firstTenUsers);
+		 return firstTenUsers;
 	}
-	 
+
 	 public int returnAllMessageForUser(String username){
 		 return (int) this.datastore.find(Message.class).
 				 filter("author_id", getUserByUsername(username).getId()).countAll();
 	 }
 	 
 	 /*SECOND STATISTIC*/
-	 public int messageProcentByHour(String username,String beginHour,String endHour){
+	 public double messageProcentByHour(String username,String begin,String end) throws ParseException{
+		 Date first_date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS\'Z\'").parse(begin);
+		 Date last_date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS\'Z\'").parse(end);
+
 		 Query<Message> query = this.datastore.find(Message.class);
 		 	query.and(
 				 query.criteria("author_id").equal(getUserByUsername(username).getId()),
 				 query.and(
-						 query.criteria("publishDate").greaterThanOrEq(beginHour),
-						 query.criteria("publishDate").lessThanOrEq(endHour)
+						 query.criteria("publishDate").greaterThanOrEq(first_date),
+						 query.criteria("publishDate").lessThanOrEq(last_date)
 						 )
 			);
 		 int allMessagesForUser = returnAllMessageForUser(username);
 		 int countOfReducedMessages = (int) query.countAll();
 		 
-		 int percent = (100*countOfReducedMessages) / allMessagesForUser;
+		 if(allMessagesForUser == 0){
+			 return 0;
+		 }
+		 
+		 double percent = (100*countOfReducedMessages) / allMessagesForUser;
 		 return percent;
 	 }
 	 
 	 /*THIRD STATISTIC*/
-	 public int messageProcentFromPlace(String username,String place){
+	 public double messageProcentFromPlace(String username,String place){
 		 Query<Message> query = this.datastore.find(Message.class);
 		 query.and(
 				 query.criteria("author_id").equal(getUserByUsername(username).getId()),
@@ -177,7 +211,11 @@ public class MongoDB{
 		 int allMessagesForUser = returnAllMessageForUser(username);
 		 int countOfReducedMessages = (int) query.countAll();
 		 
-		 int percent = (100 *countOfReducedMessages ) / allMessagesForUser;
+		 if(allMessagesForUser == 0){
+			 return 0;
+		 }
+		 
+		 double percent = (100 *countOfReducedMessages ) / allMessagesForUser;
 		 return percent;
 	 }
 	 
@@ -189,16 +227,14 @@ public class MongoDB{
 				 filter("username",username);
 		 query2.retrievedFields(true, "listOfFollowingUsers");
 		 
-		 List<FollowedUser> followed_people = query2.get().getListOfFollowingUsers();
+		 Collection<FollowedUser> followed_people = query2.get().getListOfFollowingUsers();
 		 
 		 for(FollowedUser u: followed_people){
 			 followed_people_id.add(u.getId());
 		 }
-		 followed_people_id.add("Kali");
 		 
 		 Query<Message> query = this.datastore.find(Message.class).
-				 field("author_id").in(followed_people_id);
-		 
+				 field("author_id").in(followed_people_id).order("-publishDate");
 		 return query.asList();
 	 }
 }

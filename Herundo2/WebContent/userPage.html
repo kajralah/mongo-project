@@ -15,12 +15,14 @@
             <ul class="nav">
                 <li><a href="/">Home</a></li>
                 <li><a id="message_button">Create message</a></li>
+                <li><a id="timeline">Timeline</a></li>
+                <li><a id="statistic">Statistics</a></li>
+                <li><a id="users">All users</a></li>
            </ul>
         </div>
     </nav>
     
    <div class="all">
-	
 	<div class="container" id="message">
 		<div class="form-horizontal">
 		  <form action="#" method="post" class="form" role="form" id="message">
@@ -48,16 +50,38 @@
 		</form>			
 	</div>
 	</div>
-</div>
+	</div>
 	
+	<div class="row" id="row">
+	  <div id="allUsers" class="col-md-8" style="margin-left:80px;">
+
+	  </div>
+	  
+	  <div id="allStatistic" class="col-md-8" style="margin-left:80px;">
+	  	<div id="floatitleft">
+	  		<ul style="align:left" id="ul">
+	  			<li><a id="firstTen" class="a"><b>First ten users</b></a></li>
+	  			<li><a id="time" class="a"><b>Procent of messages in intervals</b></a></li>
+	  			<li><a id="place" class="a"><b>Procent of messages from places</b></a></li>
+	  		</ul>
+	  	</div>
+	  	<div id="floatitright"></div>
+	  </div>
+	  
+	</div>
+		
     <script src="js/jquery-2.1.4.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="js/index.js"></script>
     <script>
    		$(document).ready(function(){
    			$("#message").hide();
+   			$("#allUsers").hide();
+   			$("#allStatistic").hide();
 		});
    		$("#message_button").click(function(event){
+   			$("#allUsers").hide();
+   			$("#allStatistic").hide();
    			$("#message").show();
    		});
     </script>

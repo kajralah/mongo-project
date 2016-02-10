@@ -77,3 +77,71 @@ a {text-decoration: none;}
  .all{
  	margin-top:100px;
  }
+ 
+ #ol{
+    width: 50px;
+    margin-top: 80px;
+    margin-left: 100px;
+    background-color:none;
+}
+
+#user{
+    width: 100px;
+    height: 80px;
+    display: inline-block;
+    border: 1px solid;
+    background-color:none;
+    align:center;
+}
+
+#Follow{
+	background-color: #66FF66;
+	float:right;
+}
+
+#Unfollow{
+	background-color: #FF3333;
+	float:right;
+}
+
+#data{
+	width:20px;
+}
+
+#floatitleft{
+    width:500px;
+    float:left;
+}
+
+#floatitright{
+    margin-left: 500px;
+}
+
+#allStatistic{
+	margin-top:100px;
+}
+
+#ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 300px;
+    background-color: white;
+    border:2px solid #83D0D8;
+}
+
+li a { 
+    display: block;
+}
+
+.a {
+    display: block;
+    padding: 8px 0 8px 16px;
+    text-decoration: none;
+    text-align:center;
+}
+
+.a:hover {
+    background-color: #83D0D8;
+    color: white;
+}

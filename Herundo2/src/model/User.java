@@ -2,6 +2,7 @@ package model;
 
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -92,9 +93,10 @@ public class User{
 	public void setVerified(boolean verified) {
 		this.verified = verified;
 	}
-	public List<FollowedUser> getListOfFollowingUsers() {
-		return Collections.unmodifiableList(listOfFollowingUsers);
+	public Collection<FollowedUser> getListOfFollowingUsers() {
+			return Collections.unmodifiableCollection(listOfFollowingUsers);
 	}
+	
 	public void setListOfFollowingUsers(ArrayList<FollowedUser> listOfFollowingUsers) {
 		if(listOfFollowingUsers.size() > 0){
 			this.listOfFollowingUsers = listOfFollowingUsers;
