@@ -114,6 +114,7 @@ a {text-decoration: none;}
 }
 
 #floatitright{
+	margin-top:-45px;
     margin-left: 500px;
 }
 
@@ -128,6 +129,7 @@ a {text-decoration: none;}
     width: 300px;
     background-color: white;
     border:2px solid #83D0D8;
+    align:left;
 }
 
 li a { 
@@ -144,4 +146,11 @@ li a {
 .a:hover {
     background-color: #83D0D8;
     color: white;
+}
+
+table, th, td {
+    border: 1px solid black;
+    padding: 10px;	
+    border-spacing: 10px;
+    text-align:center;    
 }

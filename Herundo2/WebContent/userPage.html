@@ -13,11 +13,11 @@
         <div class="nav_container">
             <a class="toggleMenu" href="#">Menu</a>
             <ul class="nav">
-                <li><a href="/">Home</a></li>
                 <li><a id="message_button">Create message</a></li>
                 <li><a id="timeline">Timeline</a></li>
                 <li><a id="statistic">Statistics</a></li>
                 <li><a id="users">All users</a></li>
+                <li><a id="logout">Logout</a></li>
            </ul>
         </div>
     </nav>
@@ -30,7 +30,7 @@
 			<div class="form-group">
 			  	<label class="col-md-4 control-label" for="message">Message</label>  
   				<div class="col-md-4">
-					<textarea class="form-control" maxlength="140" id="Message" name="Message">Write your message</textarea>
+					<textarea class="form-control" maxlength="140" id="message" name="Message" placeholder = "Write your message"></textarea>
 				</div>
 			</div>    
 			
@@ -59,13 +59,14 @@
 	  
 	  <div id="allStatistic" class="col-md-8" style="margin-left:80px;">
 	  	<div id="floatitleft">
-	  		<ul style="align:left" id="ul">
+	  		<ul id="ul">
 	  			<li><a id="firstTen" class="a"><b>First ten users</b></a></li>
 	  			<li><a id="time" class="a"><b>Procent of messages in intervals</b></a></li>
 	  			<li><a id="place" class="a"><b>Procent of messages from places</b></a></li>
 	  		</ul>
 	  	</div>
-	  	<div id="floatitright"></div>
+	  	<div id="floatitright">	
+	  	</div>
 	  </div>
 	  
 	</div>

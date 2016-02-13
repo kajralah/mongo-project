@@ -1,11 +1,8 @@
 package model;
 
-
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
-import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.mongodb.morphia.annotations.Entity;
@@ -82,9 +79,9 @@ public class User{
 	public Date getRegistrationDate() {
 		return registrationDate;
 	}
-	public void setRegistrationDate(Date registrationDate) {
-		if(registrationDate != null){
-			this.registrationDate = registrationDate;
+	public void setRegistrationDate(Date date) {
+		if(date != null){
+			this.registrationDate = date;
 		}
 	}
 	public boolean isVerified() {
@@ -94,7 +91,7 @@ public class User{
 		this.verified = verified;
 	}
 	public Collection<FollowedUser> getListOfFollowingUsers() {
-			return Collections.unmodifiableCollection(listOfFollowingUsers);
+			return listOfFollowingUsers;
 	}
 	
 	public void setListOfFollowingUsers(ArrayList<FollowedUser> listOfFollowingUsers) {

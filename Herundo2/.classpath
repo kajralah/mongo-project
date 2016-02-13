@@ -44,5 +44,6 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/morphia-1.1.1.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/mongo-java-driver-3.1.0.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-codec-1.6.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/maven-mongodb-plugin-1.0.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
